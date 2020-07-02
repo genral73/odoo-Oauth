@@ -8,7 +8,7 @@ In our scenario Keycloak acts as the OAuth service and Odoo as the application t
 ## 1) Setup Keycloak client and users  
    a) Open the Keycloak management console, select your realm, navigate to Configure > Clients and create a new client:
 ```bash
-    Client ID :  odoo
+    Client ID :  odoov11
     Client Protocol :  openid-connect
     Root URL  :  ${authBaseUrl}
     
@@ -28,7 +28,7 @@ In our scenario Keycloak acts as the OAuth service and Odoo as the application t
 ````
    c) Open the Mappers tab. Click on Add Builtin. Select and add the email entry. Open the email mapper and set as   
 ```bash
-    Token Claim Name  :   user_id
+    Token Claim Name:  user_id
     
     Click save.
 ```
@@ -45,9 +45,9 @@ In our scenario Keycloak acts as the OAuth service and Odoo as the application t
 
    e) Open the Credentials tab. Set the password as    
 ```bash
-    Password  :  ******
-    Password Confirmation :  ******
-    Temporary :   Off
+    Password:  ******
+    Password Confirmation:  ******
+    Temporary:  Off
     
     Click Set Password.
 ```
@@ -55,9 +55,22 @@ In our scenario Keycloak acts as the OAuth service and Odoo as the application t
 ## 2) Add Keycloak provider in Odoo
   
    a) Download the module zip from https://github.com/Mint-System/Odoo-App-Auth-OAuth-Keycloak and install the module.
-
-
-
+   b) Login to the Odoo dashboard and navigate to Settings > General Settings > Integrations.
+      If necessary enable OAuth Authentication and then click on OAuth Providers.
+      Create a new provider with the following settings:
+```bash
+    Provider Name:  Keycloak Provider
+    Client ID:  odoov11
+    Allowed:  [x]
+    Keycloak:   [x]
+    Body: Login vi Keycloak
+    Authentication URL:  http://192.168.100.91:8080/auth/realms/realm-name/protocol/openid-connect/auth
+    Scope:  email
+    Validation URL:  http://192.168.100.91:8080/auth/realms/realm-name/protocol/openid-connect/userinfo    
+    
+    Click Save.
+```
+  c) Active the developer mode and navigate to Settings > General Settings > Users > Customer Account > Default Access Rights. Edit the template and select for User types: Internal User. Save the portal user template.
 
 
 
